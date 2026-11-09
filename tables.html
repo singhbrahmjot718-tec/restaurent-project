@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table Management - DineFlow</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+            background: #F7F5F0;
+        }
+
+        /* HEADER */
+        .class1 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            padding: 10px 20px;
+            background: white;
+            border: 1px solid lightgrey;
+            width: 100%;
+        }
+
+        .class1 ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .class1 h2 {
+            margin: 10px 0;
+        }
+
+        .class1 h2 a {
+            text-decoration: none;
+            color: darkgreen;
+        }
+
+        .class2 {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .class2 li {
+            margin: 0;
+        }
+
+        .class3 {
+            text-decoration: none;
+            color: darkgreen;
+        }
+
+        .class3:hover {
+            color: goldenrod;
+        }
+
+        .admin {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .admin p {
+            margin: 0;
+        }
+
+        .avatar {
+            background-color: bisque;
+            padding: 10px;
+            border-radius: 50%;
+        }
+
+        /* PAGE LAYOUT */
+        .page-layout {
+            display: flex;
+            width: 100%;
+            min-height: calc(100vh - 70px);
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 18%;
+            flex-shrink: 0;
+            padding: 15px;
+            background: white;
+            border: 1px solid lightgray;
+        }
+
+        .sidebar h2 {
+            color: darkgreen;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 25px;
+            line-height: 2.5;
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            width: 82%;
+            min-width: 0;
+            padding: 25px;
+            background-color: #F7F5F0;
+        }
+
+        .heading p:first-child {
+            color: goldenrod;
+        }
+
+        .heading h2 {
+            color: darkgreen;
+        }
+
+        /* SUMMARY CARDS */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .class4 {
+            background-color: white;
+            width: 100%;
+            min-width: 0;
+            min-height: 150px;
+            border-radius: 25px;
+            text-align: center;
+            padding: 15px 8px;
+        }
+
+        .class4 h2 {
+            color: darkgreen;
+        }
+
+        .class4 input {
+            max-width: 100%;
+            padding: 7px 10px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        /* FILTER BUTTONS */
+        .class5 {
+            margin: 35px 0 25px;
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .class5 ul {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            list-style: none;
+            padding: 10px 5px;
+            margin: 0;
+            width: max-content;
+        }
+
+        .class5 ul li a {
+            display: inline-block;
+            padding: 12px 20px;
+            background-color: white;
+            text-decoration: none;
+            color: darkgreen;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+
+        .class5 ul li a:hover {
+            background-color: antiquewhite;
+        }
+
+        /* TABLE CARDS */
+        .class7 {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 15px;
+            width: 100%;
+            margin-top: 25px;
+        }
+
+        .table-card {
+            background-color: white;
+            border-radius: 25px;
+            padding: 18px;
+            min-width: 0;
+            overflow-wrap: break-word;
+        }
+
+        .table-card h2 {
+            color: darkgreen;
+            font-size: 20px;
+            margin-top: 5px;
+        }
+
+        .table-status {
+            display: inline-block;
+            max-width: 100%;
+            padding: 7px 10px;
+            border-radius: 20px;
+            border: none;
+            float: right;
+            font-size: 12px;
+            white-space: normal;
+            overflow-wrap: anywhere;
+        }
+
+        .table-number {
+            display: block;
+            width: fit-content;
+            padding: 10px;
+            border-radius: 50%;
+            background-color: aliceblue;
+            margin-top: 10px;
+        }
+
+        .table-card p {
+            font-size: 14px;
+            margin: 18px 0;
+        }
+
+        .details-btn {
+            width: 110px;
+            max-width: 100%;
+            padding: 9px;
+            border: none;
+            border-radius: 20px;
+            background-color: antiquewhite;
+            cursor: pointer;
+        }
+
+        /* TABLET */
+        @media screen and (max-width: 1100px) {
+
+            .sidebar {
+                width: 22%;
+            }
+
+            .main-content {
+                width: 78%;
+                padding: 18px;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .class7 {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .class2 {
+                gap: 12px;
+            }
+        }
+
+        /* MOBILE */
+        @media screen and (max-width: 768px) {
+
+            .class1 {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 12px;
+            }
+
+            .class2 {
+                width: 100%;
+                gap: 15px;
+                flex-wrap: wrap;
+            }
+
+            .admin {
+                margin-top: 5px;
+            }
+
+            .page-layout {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                min-height: auto;
+                padding: 10px 15px;
+            }
+
+            .sidebar h2 {
+                margin: 5px 0;
+            }
+
+            .sidebar ul {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 15px;
+                line-height: normal;
+                margin: 12px 0;
+            }
+
+            .main-content {
+                width: 100%;
+                padding: 15px;
+            }
+
+            .class7 {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .class5 {
+                margin-top: 20px;
+            }
+        }
+
+        /* SMALL MOBILE */
+        @media screen and (max-width: 480px) {
+
+            .class2 {
+                gap: 10px;
+            }
+
+            .class2 li a {
+                font-size: 14px;
+            }
+
+            .main-content {
+                padding: 12px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .class7 {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .class4 {
+                min-height: 130px;
+            }
+
+            .table-card {
+                padding: 18px;
+            }
+
+            .table-card h2 {
+                font-size: 18px;
+            }
+        }
+
+        /* PRINT */
+        @media print {
+
+            .class1,
+            .sidebar,
+            .class5 {
+                display: none;
+            }
+
+            .page-layout {
+                display: block;
+            }
+
+            .main-content {
+                width: 100%;
+            }
+
+            .class7 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <div class="class1">
+
+        <ul>
+            <li>
+                <h2>
+                    <a href="index.html">
+                        <span>✦</span> Dine<span>Flow</span>
+                    </a>
+                </h2>
+            </li>
+        </ul>
+
+        <ul class="class2">
+            <li><a class="class3" href="dashboard.html">Dashboard</a></li>
+            <li><a class="class3" href="tables.html">Tables</a></li>
+            <li><a class="class3" href="orders.html">Orders</a></li>
+            <li><a class="class3" href="billing.html">Billing</a></li>
+        </ul>
+
+        <div class="admin">
+            <p>Restaurant Admin</p>
+            <span class="avatar">DF</span>
+        </div>
+
+    </div>
+
+    <!-- PAGE LAYOUT -->
+    <div class="page-layout">
+
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+
+            <h2>Workspace</h2>
+
+            <ul>
+                <li><a class="class3" href="dashboard.html">Dashboard</a></li>
+                <li><a class="class3" href="tables.html">Tables</a></li>
+                <li><a class="class3" href="orders.html">Orders</a></li>
+                <li><a class="class3" href="billing.html">Billing</a></li>
+            </ul>
+
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+
+            <div class="heading">
+                <p>Dining room</p>
+                <h2>Table Management</h2>
+                <p>Every table, every status all in one place</p>
+            </div>
+
+            <!-- SUMMARY CARDS -->
+            <div class="stats">
+
+                <div class="class4">
+                    <p>Available</p>
+                    <h2>3</h2>
+                    <input style="background-color: antiquewhite;"
+                        type="submit" value="Ready for guests">
+                </div>
+
+                <div class="class4">
+                    <p>Occupied</p>
+                    <h2>2</h2>
+                    <input style="background-color: beige;"
+                        type="submit" value="Guests seated">
+                </div>
+
+                <div class="class4">
+                    <p>Waiting</p>
+                    <h2>4</h2>
+                    <input style="background-color: azure;"
+                        type="submit" value="In service">
+                </div>
+
+                <div class="class4">
+                    <p>Awaiting payment</p>
+                    <h2>1</h2>
+                    <input style="background-color: blanchedalmond;"
+                        type="submit" value="Bill pending">
+                </div>
+
+            </div>
+
+            <!-- FILTER BUTTONS -->
+            <div class="class5">
+                <ul>
+                    <li><a href="#">All tables</a></li>
+                    <li><a href="#">Available</a></li>
+                    <li><a href="#">Occupied</a></li>
+                    <li><a href="#">Waiting</a></li>
+                    <li><a href="#">Serving</a></li>
+                    <li><a href="#">Payment</a></li>
+                </ul>
+            </div>
+
+            <!-- TABLE CARDS -->
+            <div class="class7">
+
+                <div class="table-card">
+                    <h2>Table01</h2>
+                    <input class="table-status" type="button"
+                        value="Occupied" style="background-color: lightgreen;">
+                    <span class="table-number">01</span>
+                    <p>Guests: 4 guests &nbsp; Time: 18min</p>
+                    <input class="details-btn" type="submit" value="View details">
+                </div>
+
+                <div class="table-card">
+                    <h2>Table02</h2>
+                    <input class="table-status" type="button"
+                        value="Waiting for orders" style="background-color: lightblue;">
+                    <span class="table-number">01</span>
+                    <p>Guests: 4 guests &nbsp; Time: 18min</p>
+                    <input class="details-btn" type="submit" value="View details">
+                </div>
+
+                <div class="table-card">
+                    <h2>Table03</h2>
+                    <input class="table-status" type="button"
+                        value="Being served" style="background-color: lightcoral;">
+                    <span class="table-number">01</span>
+                    <p>Guests: 4 guests &nbsp; Time: 18min</p>
+                    <input class="details-btn" type="submit" value="View details">
+                </div>
+
+                <div class="table-card">
+                    <h2>Table04</h2>
+                    <input class="table-status" type="button"
+                        value="Available" style="background-color: lightcyan;">
+                    <span class="table-number">01</span>
+                    <p>Guests: 4 guests &nbsp; Time: 18min</p>
+                    <input class="details-btn" type="submit" value="View details">
+                </div>
+
+                <div class="table-card">
+                    <h2>Table05</h2>
+                    <input class="table-status" type="button"
+                        value="Occupied" style="background-color: lightskyblue;">
+                    <span class="table-number">01</span>
+                    <p>Guests: 4 guests &nbsp; Time: 18min</p>
+                    <input class="details-btn" type="submit" value="View details">
+                </div>
+
+                <div class="table-card">
+                    <h2>Table06</h2>
+                    <input class="table-status" type="button"
+                        value="Being served" style="background-color: lightseagreen;">
+                    <span class="table-number">01</span>
+                    <p>Guests: 4 guests &nbsp; Time: 18min</p>
+                    <input class="details-btn" type="submit" value="View details">
+                </div>
+
+                <div class="table-card">
+                    <h2>Table07</h2>
+                    <input class="table-status" type="button"
+                        value="Available" style="background-color: lightgoldenrodyellow;">
+                    <span class="table-number">01</span>
+                    <p>Guests: 4 guests &nbsp; Time: 18min</p>
+                    <input class="details-btn" type="submit" value="View details">
+                </div>
+
+                <div class="table-card">
+                    <h2>Table08</h2>
+                    <input class="table-status" type="button"
+                        value="Available" style="background-color: lightsalmon;">
+                    <span class="table-number">01</span>
+                    <p>Guests: 4 guests &nbsp; Time: 18min</p>
+                    <input class="details-btn" type="submit" value="View details">
+                </div>
+
+                <div class="table-card">
+                    <h2>Table09</h2>
+                    <input class="table-status" type="button"
+                        value="Awaiting for payment" style="background-color: lightgoldenrodyellow;">
+                    <span class="table-number">01</span>
+                    <p>Guests: 4 guests &nbsp; Time: 18min</p>
+                    <input class="details-btn" type="submit" value="View details">
+                </div>
+
+                <div class="table-card">
+                    <h2>Table10</h2>
+                    <input class="table-status" type="button"
+                        value="Waiting for orders" style="background-color: lightgrey;">
+                    <span class="table-number">01</span>
+                    <p>Guests: 4 guests &nbsp; Time: 18min</p>
+                    <input class="details-btn" type="submit" value="View details">
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
