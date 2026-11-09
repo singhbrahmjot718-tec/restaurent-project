@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Billing - DineFlow</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+            background-color: #F1EEE8;
+        }
+
+        /* HEADER */
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            background-color: white;
+            border: 1px solid grey;
+            width: 100%;
+            min-height: 76px;
+            padding: 10px 20px;
+        }
+
+        .header ul {
+            list-style: none;
+        }
+
+        .logo a {
+            text-decoration: none;
+            color: darkgreen;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 22px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .nav-links a:hover {
+            color: darkgreen;
+        }
+
+        .admin {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .avatar {
+            background-color: bisque;
+            padding: 10px;
+            border-radius: 50%;
+        }
+
+        /* MAIN LAYOUT */
+
+        .main {
+            display: grid;
+            grid-template-columns: 20% 80%;
+            min-height: calc(100vh - 76px);
+        }
+
+        /* SIDEBAR */
+
+        .sub1 {
+            background-color: white;
+            border: 1px solid grey;
+            padding: 15px;
+        }
+
+        .sub1 ul {
+            list-style: none;
+        }
+
+        .sub1 li {
+            margin: 12px 5px;
+            padding: 12px;
+        }
+
+        .sub1 a {
+            text-decoration: none;
+            color: black;
+        }
+
+        /* MAIN CONTENT */
+
+        .sub2 {
+            background-color: #F1EEE8;
+            padding: 25px;
+            min-width: 0;
+        }
+
+        .sub2 > p:first-child {
+            color: goldenrod;
+        }
+
+        .sub2 > h1 {
+            color: darkgreen;
+            margin: 8px 0;
+        }
+
+        /* BILLING PARENT */
+
+        .parent {
+            background-color: white;
+            margin: 35px auto;
+            width: 100%;
+            max-width: 1100px;
+            padding: 25px;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 25px;
+            border-radius: 22px;
+            align-items: stretch;
+        }
+
+        /* BILL DETAILS */
+
+        .child1 {
+            background-color: #FBF6EB;
+            border-radius: 22px;
+            width: 100%;
+            min-width: 0;
+            padding: 25px;
+        }
+
+        .child1 h3 {
+            color: darkgreen;
+            margin-bottom: 10px;
+        }
+
+        .sample-text {
+            margin-bottom: 25px;
+            color: #555;
+        }
+
+        /* INPUT FIELDS */
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            min-width: 0;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            min-width: 0;
+            height: 38px;
+            padding: 8px;
+            border: 1px solid lightgrey;
+            border-radius: 6px;
+            background-color: white;
+        }
+
+        /* BILL TABLE */
+
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            margin-top: 25px;
+        }
+
+        .bill-table {
+            width: 100%;
+            min-width: 350px;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .bill-table th,
+        .bill-table td {
+            padding: 12px 8px;
+            border-bottom: 1px solid lightgrey;
+        }
+
+        .bill-table th {
+            background-color: #eee8dc;
+        }
+
+        /* PAYMENT METHOD */
+
+        .payment-method {
+            margin-top: 25px;
+        }
+
+        .payment-method label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .payment-method select {
+            width: 100%;
+            max-width: 220px;
+            padding: 10px;
+            border: 1px solid lightgrey;
+            border-radius: 6px;
+        }
+
+        /* BILL SUMMARY */
+
+        .child2 {
+            background-color: #FBF6EB;
+            border-radius: 22px;
+            width: 100%;
+            min-width: 0;
+            padding: 30px 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .child2 h4 {
+            font-size: 22px;
+            color: darkgreen;
+            margin-bottom: 30px;
+        }
+
+        .summary-table {
+            width: 100%;
+            text-align: left;
+            border-collapse: collapse;
+        }
+
+        .summary-table td,
+        .summary-table th {
+            padding: 15px 8px;
+            border-bottom: 1px solid lightgrey;
+        }
+
+        .summary-table td:last-child,
+        .summary-table th:last-child {
+            text-align: right;
+        }
+
+        .summary-table tr:last-child {
+            font-size: 18px;
+            color: darkgreen;
+        }
+
+        /* PAYMENT BUTTON */
+
+        .payment-btn {
+            width: 100%;
+            max-width: 300px;
+            padding: 13px;
+            margin-top: 35px;
+            background-color: darkgreen;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .return-link {
+            margin-top: 20px;
+            color: darkgreen;
+            text-decoration: none;
+        }
+
+        .note {
+            margin-top: 25px;
+            font-size: 13px;
+            color: #781a1a;
+            line-height: 1.5;
+        }
+
+        /* TABLET RESPONSIVE */
+
+        @media screen and (max-width: 1000px) {
+
+            .main {
+                grid-template-columns: 23% 77%;
+            }
+
+            .parent {
+                padding: 18px;
+                gap: 15px;
+            }
+
+            .child1 {
+                padding: 18px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        /* MOBILE RESPONSIVE */
+
+        @media screen and (max-width: 768px) {
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 12px;
+            }
+
+            .nav-links {
+                gap: 15px;
+            }
+
+            .admin {
+                margin-top: 5px;
+            }
+
+            .main {
+                grid-template-columns: 1fr;
+            }
+
+            .sub1 {
+                padding: 10px 15px;
+            }
+
+            .sub1 ul {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+
+            .sub1 li {
+                margin: 5px;
+                padding: 8px;
+            }
+
+            .sub2 {
+                padding: 15px;
+            }
+
+            .parent {
+                grid-template-columns: 1fr;
+                margin-top: 25px;
+                padding: 15px;
+                gap: 18px;
+            }
+
+            .form-row {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+        }
+
+        /* SMALL MOBILE */
+
+        @media screen and (max-width: 480px) {
+
+            .header {
+                padding: 10px;
+            }
+
+            .nav-links {
+                gap: 10px;
+            }
+
+            .nav-links a {
+                font-size: 14px;
+            }
+
+            .sub2 {
+                padding: 10px;
+            }
+
+            .parent {
+                padding: 10px;
+                border-radius: 15px;
+            }
+
+            .child1,
+            .child2 {
+                padding: 18px 12px;
+                border-radius: 15px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .bill-table {
+                min-width: 350px;
+            }
+
+            .child2 h4 {
+                font-size: 20px;
+            }
+
+            .summary-table td,
+            .summary-table th {
+                padding: 12px 5px;
+                font-size: 14px;
+            }
+
+            .payment-btn {
+                font-size: 14px;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <ul class="logo">
+            <li>
+                <h2>
+                    <a href="index.html">
+                        <span>✦</span>
+                        <span>Dine<span>Flow</span></span>
+                    </a>
+                </h2>
+            </li>
+        </ul>
+
+        <ul class="nav-links">
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="tables.html">Tables</a></li>
+            <li><a href="orders.html">Orders</a></li>
+            <li><a href="billing.html">Billing</a></li>
+        </ul>
+
+        <div class="admin">
+            <h4>Restaurant Admin</h4>
+            <span class="avatar">DF</span>
+        </div>
+
+    </div>
+
+    <!-- MAIN LAYOUT -->
+
+    <div class="main">
+
+        <!-- SIDEBAR -->
+
+        <div class="sub1">
+
+            <ul>
+                <li>
+                    <a href="dashboard.html">Dashboard</a>
+                </li>
+
+                <li>
+                    <a href="tables.html">Tables</a>
+                </li>
+
+                <li>
+                    <a href="orders.html">Orders</a>
+                </li>
+
+                <li>
+                    <a href="billing.html">Billing</a>
+                </li>
+            </ul>
+
+        </div>
+
+        <!-- BILLING CONTENT -->
+
+        <div class="sub2">
+
+            <p>Checkout</p>
+
+            <h1>Billing</h1>
+
+            <p>Review the bill before completing the payment</p>
+
+            <div class="parent">
+
+                <!-- BILL DETAILS -->
+
+                <div class="child1">
+
+                    <h3>Bill details</h3>
+
+                    <p class="sample-text">
+                        Sample restaurant invoice
+                    </p>
+
+                    <!-- TABLE AND BILL NUMBER -->
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label for="table-number">Table number</label>
+
+                            <select id="table-number">
+                                <option>Table09</option>
+                                <option>Table06</option>
+                                <option>Table05</option>
+                                <option>Table01</option>
+                            </select>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="bill-number">Bill number</label>
+
+                            <input id="bill-number" type="text"
+                                placeholder="INV-0109">
+
+                        </div>
+
+                    </div>
+
+                    <!-- ITEMS TABLE -->
+
+                    <div class="table-container">
+
+                        <table class="bill-table">
+
+                            <tr>
+                                <th>Item</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Total</th>
+                            </tr>
+
+                            <tr>
+                                <td>Sandwich</td>
+                                <td>2</td>
+                                <td>$150</td>
+                                <td>$300</td>
+                            </tr>
+
+                            <tr>
+                                <td>Coffee</td>
+                                <td>2</td>
+                                <td>$80</td>
+                                <td>$160</td>
+                            </tr>
+
+                        </table>
+
+                    </div>
+
+                    <!-- PAYMENT METHOD -->
+
+                    <div class="payment-method">
+
+                        <label for="payment-method">
+                            Payment method
+                        </label>
+
+                        <select id="payment-method">
+                            <option>Cash</option>
+                            <option>UPI</option>
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <!-- BILL SUMMARY -->
+
+                <div class="child2">
+
+                    <h4>Bill summary</h4>
+
+                    <table class="summary-table">
+
+                        <tr>
+                            <td>Subtotal</td>
+                            <td>₹ 460.00</td>
+                        </tr>
+
+                        <tr>
+                            <td>Tax (5%)</td>
+                            <td>₹ 23.00</td>
+                        </tr>
+
+                        <tr>
+                            <td>Service charge</td>
+                            <td>₹ 0.00</td>
+                        </tr>
+
+                        <tr>
+                            <th>Total</th>
+                            <th>₹ 483.00</th>
+                        </tr>
+
+                    </table>
+
+                    <button class="payment-btn" type="button">
+                        ✓ Mark payment received
+                    </button>
+
+                    <a class="return-link" href="tables.html">
+                        Return to tables
+                    </a>
+
+                    <p class="note">
+                        Amounts are sample data for the college project
+                        and are not connected to a payment system.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
