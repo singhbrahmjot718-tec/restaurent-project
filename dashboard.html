@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DineFlow Dashboard</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F7F5F0;
+            color: #222;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* HEADER */
+
+        .class1 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 25px;
+            background-color: white;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .class1 h2 {
+            font-size: 24px;
+        }
+
+        .class2 {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .class2 li a {
+            color: #333;
+            font-size: 16px;
+        }
+
+        .class2 li a:hover {
+            color: goldenrod;
+        }
+
+        .admin {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .admin p {
+            font-size: 14px;
+        }
+
+        .avatar {
+            background-color: bisque;
+            padding: 13px;
+            border-radius: 50%;
+            font-weight: bold;
+        }
+
+        /* MAIN LAYOUT */
+
+        .main-layout {
+            display: flex;
+            width: 100%;
+            min-height: calc(100vh - 75px);
+        }
+
+        /* SIDEBAR */
+
+        .sidebar {
+            width: 18%;
+            min-width: 180px;
+            background-color: white;
+            padding: 25px 20px;
+        }
+
+        .sidebar h2 {
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            line-height: 2.8;
+        }
+
+        .sidebar a {
+            color: #333;
+            font-size: 16px;
+        }
+
+        .sidebar a:hover,
+        .sidebar .active {
+            color: goldenrod;
+        }
+
+        /* DASHBOARD CONTENT */
+
+        .dashboard-content {
+            width: 82%;
+            padding: 25px;
+            min-width: 0;
+        }
+
+        .welcome-section {
+            margin-bottom: 25px;
+        }
+
+        .welcome-section h3 {
+            margin-bottom: 12px;
+            font-size: 17px;
+        }
+
+        .welcome-section h1 {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .welcome-section p {
+            color: #666;
+        }
+
+        /* STATISTICS CARDS */
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .class3 {
+            background-color: white;
+            width: 100%;
+            min-height: 160px;
+            border-radius: 14px;
+            text-align: center;
+            padding: 20px 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .class3 p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .class3 h1 {
+            font-size: 30px;
+        }
+
+        .class3 input {
+            padding: 7px 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #F7F5F0;
+        }
+
+        /* LOWER DASHBOARD */
+
+        .lower-section {
+            display: grid;
+            grid-template-columns: minmax(0, 2.2fr) minmax(220px, 1fr);
+            gap: 20px;
+            align-items: start;
+        }
+
+        /* DINING FLOOR */
+
+        .dining-floor {
+            background-color: white;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 12px;
+            min-width: 0;
+        }
+
+        .dining-floor h2 {
+            margin-bottom: 8px;
+        }
+
+        .dining-floor > p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .floor-grid {
+            background-color: #F4EEE3;
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 12px;
+            justify-items: center;
+            padding: 20px 10px;
+            border-radius: 10px;
+        }
+
+        .class4 {
+            width: 100%;
+            max-width: 120px;
+            min-height: 100px;
+            border: 1px solid transparent;
+            margin-top: 10px;
+            border-radius: 15px;
+            text-align: center;
+            padding: 12px 5px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .class4 h2 {
+            font-size: 21px;
+            margin-bottom: 8px;
+        }
+
+        .class4 p {
+            font-size: 14px;
+        }
+
+        .occupied {
+            background-color: #FDE8E8;
+        }
+
+        .waiting {
+            background-color: #FFF0D5;
+        }
+
+        .serving {
+            background-color: #E6EFFF;
+        }
+
+        .available {
+            background-color: #E3F5E9;
+        }
+
+        /* QUICK ACTIONS */
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .quick-heading,
+        .quick-card {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .quick-heading h2 {
+            font-size: 21px;
+        }
+
+        .quick-card {
+            min-height: 95px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 10px;
+            transition: 0.2s;
+        }
+
+        .quick-card:hover {
+            background-color: #FFF8E8;
+        }
+
+        .quick-card p:first-child {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .quick-card p:last-child {
+            color: #777;
+            font-size: 14px;
+        }
+
+        /* TABLET RESPONSIVE */
+
+        @media (max-width: 1000px) {
+
+            .class1 {
+                padding: 15px;
+            }
+
+            .class2 {
+                gap: 15px;
+            }
+
+            .sidebar {
+                width: 20%;
+                min-width: 150px;
+                padding: 20px 12px;
+            }
+
+            .dashboard-content {
+                width: 80%;
+                padding: 20px;
+            }
+
+            .stats-container {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .lower-section {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-actions {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+
+            .quick-heading {
+                grid-column: 1 / -1;
+            }
+        }
+
+        /* MOBILE RESPONSIVE */
+
+        @media (max-width: 600px) {
+
+            .class1 {
+                flex-direction: column;
+                gap: 18px;
+                padding: 18px 10px;
+            }
+
+            .class1 h2 {
+                font-size: 22px;
+            }
+
+            .class2 {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 18px;
+            }
+
+            .class2 li a {
+                font-size: 14px;
+            }
+
+            .admin {
+                justify-content: center;
+            }
+
+            .main-layout {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                min-width: 0;
+                padding: 15px;
+            }
+
+            .sidebar h2 {
+                font-size: 19px;
+                margin-bottom: 10px;
+            }
+
+            .sidebar ul {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 15px;
+                line-height: 1.5;
+            }
+
+            .sidebar a {
+                font-size: 14px;
+            }
+
+            .dashboard-content {
+                width: 100%;
+                padding: 18px 12px;
+            }
+
+            .welcome-section h1 {
+                font-size: 25px;
+            }
+
+            .welcome-section h3 {
+                font-size: 15px;
+            }
+
+            .welcome-section p {
+                font-size: 14px;
+                line-height: 1.5;
+            }
+
+            .stats-container {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 12px;
+            }
+
+            .class3 {
+                min-height: 135px;
+                padding: 15px 5px;
+            }
+
+            .class3 h1 {
+                font-size: 25px;
+            }
+
+            .class3 p {
+                font-size: 12px;
+            }
+
+            .class3 input {
+                max-width: 100%;
+                font-size: 11px;
+            }
+
+            .lower-section {
+                grid-template-columns: 1fr;
+                gap: 18px;
+            }
+
+            .dining-floor {
+                padding: 15px 10px;
+            }
+
+            .floor-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 10px;
+                padding: 12px 8px;
+            }
+
+            .class4 {
+                max-width: 130px;
+                min-height: 90px;
+                margin-top: 5px;
+            }
+
+            .class4 h2 {
+                font-size: 19px;
+            }
+
+            .class4 p {
+                font-size: 13px;
+            }
+
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-heading {
+                grid-column: auto;
+            }
+        }
+
+        /* SMALL MOBILE */
+
+        @media (max-width: 350px) {
+
+            .class2 {
+                gap: 10px;
+            }
+
+            .class2 li a {
+                font-size: 12px;
+            }
+
+            .dashboard-content {
+                padding: 15px 8px;
+            }
+
+            .class3 {
+                min-height: 120px;
+            }
+
+            .class3 h1 {
+                font-size: 22px;
+            }
+
+            .class3 p {
+                font-size: 11px;
+            }
+
+            .dining-floor h2 {
+                font-size: 19px;
+            }
+        }
+        body {
+    padding-bottom: 30px;
+}
+
+.quick-actions {
+    padding-bottom: 20px;
+}
+
+.quick-actions a,
+.quick-actions .action-card {
+    min-height: 100px;
+}
+
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <div class="class1">
+
+        <ul type="none">
+            <li>
+                <h2>
+                    <a href="index.html">
+                        <span>✦</span>
+                        <span>Dine<span>Flow</span></span>
+                    </a>
+                </h2>
+            </li>
+        </ul>
+
+        <ul class="class2">
+
+            <li>
+                <a href="dashboard.html">Dashboard</a>
+            </li>
+
+            <li>
+                <a href="tables.html">Tables</a>
+            </li>
+
+            <li>
+                <a href="orders.html">Orders</a>
+            </li>
+
+            <li>
+                <a href="billing.html">Billing</a>
+            </li>
+
+        </ul>
+
+        <div class="admin">
+            <p>Restaurant Admin</p>
+            <span class="avatar">DF</span>
+        </div>
+
+    </div>
+
+    <!-- MAIN LAYOUT -->
+
+    <div class="main-layout">
+
+        <!-- SIDEBAR -->
+
+        <div class="sidebar">
+
+            <h2>Workspace</h2>
+
+            <ul>
+
+                <li>
+                    <a class="active" href="dashboard.html">Dashboard</a>
+                </li>
+
+                <li>
+                    <a href="tables.html">Tables</a>
+                </li>
+
+                <li>
+                    <a href="orders.html">Orders</a>
+                </li>
+
+                <li>
+                    <a href="billing.html">Billing</a>
+                </li>
+
+            </ul>
+
+        </div>
+
+        <!-- DASHBOARD CONTENT -->
+
+        <div class="dashboard-content">
+
+            <!-- WELCOME -->
+
+            <div class="welcome-section">
+
+                <h3>Wednesday Service overview</h3>
+
+                <h1>Good Afternoon</h1>
+
+                <p>
+                    Here's whats happening across your restaurant right now
+                </p>
+
+            </div>
+
+            <!-- STATISTICS -->
+
+            <div class="stats-container">
+
+                <div class="class3">
+                    <p>Total tables</p>
+                    <h1>10</h1>
+                    <p>Across the dining table</p>
+                </div>
+
+                <div class="class3">
+                    <p>Occupied</p>
+                    <h1>3</h1>
+                    <input type="button" value="Guests seated">
+                </div>
+
+                <div class="class3">
+                    <p>Waiting</p>
+                    <h1>4</h1>
+                    <input type="button" value="Needs attention">
+                </div>
+
+                <div class="class3">
+                    <p>Available</p>
+                    <h1>3</h1>
+                    <input type="button" value="Ready for guests">
+                </div>
+
+            </div>
+
+            <!-- DINING FLOOR AND QUICK ACTIONS -->
+
+            <div class="lower-section">
+
+                <!-- DINING FLOOR -->
+
+                <div class="dining-floor">
+
+                    <h2>Dining floor</h2>
+
+                    <p>Quick look at table status</p>
+
+                    <div class="floor-grid">
+
+                        <div class="class4 occupied">
+                            <h2>T01</h2>
+                            <p>Occupied</p>
+                        </div>
+
+                        <div class="class4 waiting">
+                            <h2>T02</h2>
+                            <p>Waiting</p>
+                        </div>
+
+                        <div class="class4 serving">
+                            <h2>T03</h2>
+                            <p>Serving</p>
+                        </div>
+
+                        <div class="class4 available">
+                            <h2>T04</h2>
+                            <p>Available</p>
+                        </div>
+
+                        <div class="class4 occupied">
+                            <h2>T05</h2>
+                            <p>Occupied</p>
+                        </div>
+
+                        <div class="class4 serving">
+                            <h2>T06</h2>
+                            <p>Serving</p>
+                        </div>
+
+                        <div class="class4 available">
+                            <h2>T07</h2>
+                            <p>Available</p>
+                        </div>
+
+                        <div class="class4 available">
+                            <h2>T08</h2>
+                            <p>Available</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- QUICK ACTIONS -->
+
+                <div class="quick-actions">
+
+                    <div class="quick-heading">
+                        <h2>Quick actions</h2>
+                    </div>
+
+                    <a href="tables.html" class="quick-card">
+
+                        <p>Manage tables</p>
+
+                        <p>Update table status</p>
+
+                    </a>
+
+                    <a href="orders.html" class="quick-card">
+
+                        <p>View orders</p>
+
+                        <p>Check order progress</p>
+
+                    </a>
+
+                    <a href="billing.html" class="quick-card">
+
+                        <p>Prepare a bill</p>
+
+                        <p>Review payment total</p>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
