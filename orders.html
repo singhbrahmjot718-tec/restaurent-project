@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders - DineFlow</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* HEADER */
+        .class1 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 10px 20px;
+            border: 1px solid lightgrey;
+            width: 100%;
+            gap: 10px;
+        }
+
+        .class1 ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .class2 {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .class2 li {
+            margin: 0;
+        }
+
+        .class3 {
+            text-decoration: none;
+            color: darkgreen;
+        }
+
+        .class3:hover {
+            color: goldenrod;
+        }
+
+        .avatar {
+            background-color: bisque;
+            padding: 10px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        /* MAIN PAGE LAYOUT */
+        .page-layout {
+            display: flex;
+            width: 100%;
+            min-height: calc(100vh - 75px);
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 18%;
+            border: 1px solid lightgray;
+            padding: 15px;
+            flex-shrink: 0;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            line-height: 2.5;
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            background-color: #F7F5F0;
+            width: 82%;
+            min-width: 0;
+            padding: 25px;
+        }
+
+        .main-content h2 {
+            color: darkgreen;
+        }
+
+        .heading p:first-child {
+            color: goldenrod;
+        }
+
+        /* SUMMARY CARDS */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .class4 {
+            background-color: white;
+            width: 100%;
+            min-width: 0;
+            min-height: 150px;
+            border-radius: 25px;
+            text-align: center;
+            padding: 15px 8px;
+        }
+
+        .class4 input {
+            max-width: 100%;
+        }
+
+        /* CURRENT ORDERS */
+        .orders-box {
+            width: 100%;
+            margin-top: 35px;
+            border: 2px solid lightgrey;
+            background-color: white;
+            border-radius: 25px;
+            padding: 20px;
+            min-width: 0;
+        }
+
+        .orders-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .print-btn {
+            width: 100px;
+            height: 40px;
+            border-radius: 20px;
+            background-color: antiquewhite;
+            cursor: pointer;
+            border: none;
+        }
+
+        /* TABLE */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            margin-top: 15px;
+        }
+
+        table {
+            width: 100%;
+            min-width: 550px;
+            text-align: left;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px 10px;
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        th {
+            background-color: #f7f5f0;
+        }
+
+        td input {
+            cursor: pointer;
+        }
+
+        /* TABLET */
+        @media screen and (max-width: 992px) {
+
+            .sidebar {
+                width: 23%;
+            }
+
+            .main-content {
+                width: 77%;
+                padding: 18px;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .class1 {
+                padding: 10px;
+            }
+
+            .class2 {
+                gap: 12px;
+            }
+        }
+
+        /* MOBILE */
+        @media screen and (max-width: 768px) {
+
+            .class1 {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 12px;
+            }
+
+            .class2 {
+                width: 100%;
+                gap: 15px;
+                flex-wrap: wrap;
+            }
+
+            .page-layout {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                min-height: auto;
+                padding: 10px 15px;
+            }
+
+            .sidebar h2 {
+                margin: 5px 0;
+            }
+
+            .sidebar ul {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 15px;
+                line-height: normal;
+                margin: 10px 0;
+            }
+
+            .main-content {
+                width: 100%;
+                padding: 15px;
+            }
+
+            .orders-box {
+                padding: 15px;
+            }
+        }
+
+        /* SMALL MOBILE */
+        @media screen and (max-width: 480px) {
+
+            .class2 {
+                gap: 10px;
+            }
+
+            .class2 li a {
+                font-size: 14px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .class4 {
+                min-height: 130px;
+            }
+
+            .main-content {
+                padding: 10px;
+            }
+
+            .orders-box {
+                padding: 12px;
+                border-radius: 18px;
+            }
+
+            .orders-top {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .print-btn {
+                width: 100%;
+            }
+
+            table {
+                min-width: 500px;
+            }
+        }
+
+        /* PRINT */
+        @media print {
+            .class1,
+            .sidebar,
+            .print-btn {
+                display: none;
+            }
+
+            .page-layout {
+                display: block;
+            }
+
+            .main-content {
+                width: 100%;
+            }
+
+            .orders-box {
+                border: none;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <div class="class1">
+
+        <ul>
+            <li>
+                <h2>
+                    <a style="text-decoration:none;" href="index.html">
+                        <span>✦</span>
+                        <span>Dine<span>Flow</span></span>
+                    </a>
+                </h2>
+            </li>
+        </ul>
+
+        <ul class="class2">
+            <li><a class="class3" href="dashboard.html">Dashboard</a></li>
+            <li><a class="class3" href="tables.html">Tables</a></li>
+            <li><a class="class3" href="orders.html">Orders</a></li>
+            <li><a class="class3" href="billing.html">Billing</a></li>
+        </ul>
+
+        <ul>
+            <li>
+                <p>Restaurant Admin</p>
+                <span class="avatar">DF</span>
+            </li>
+        </ul>
+
+    </div>
+
+    <!-- PAGE LAYOUT -->
+    <div class="page-layout">
+
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+
+            <h2>Workspace</h2>
+
+            <ul>
+                <li><a class="class3" href="dashboard.html">Dashboard</a></li>
+                <li><a class="class3" href="tables.html">Tables</a></li>
+                <li><a class="class3" href="orders.html">Orders</a></li>
+                <li><a class="class3" href="billing.html">Billing</a></li>
+            </ul>
+
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+
+            <div class="heading">
+                <p>Kitchen and service</p>
+                <h2>Orders</h2>
+                <p>Follow the progress of each tables order</p>
+            </div>
+
+            <!-- SUMMARY CARDS -->
+            <div class="stats">
+
+                <div class="class4">
+                    <p>Active orders</p>
+                    <h2>3</h2>
+                    <input type="submit" value="in progress">
+                </div>
+
+                <div class="class4">
+                    <p>Waiting</p>
+                    <h2>2</h2>
+                    <input type="submit" value="Needs taking">
+                </div>
+
+                <div class="class4">
+                    <p>Ready to serve</p>
+                    <h2>4</h2>
+                    <input type="submit" value="Ready">
+                </div>
+
+                <div class="class4">
+                    <p>Completed today</p>
+                    <h2>19</h2>
+                    <input type="submit" value="Sample count">
+                </div>
+
+            </div>
+
+            <!-- CURRENT ORDERS -->
+            <div class="orders-box">
+
+                <div class="orders-top">
+                    <div>
+                        <h2>Current orders</h2>
+                        <p>Example data for demonstration</p>
+                    </div>
+
+                    <button class="print-btn" onclick="window.print();">
+                        Print list
+                    </button>
+                </div>
+
+                <!-- RESPONSIVE TABLE -->
+                <div class="table-container">
+
+                    <table>
+
+                        <tr>
+                            <th>Order/Table</th>
+                            <th>Items</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                        </tr>
+
+                        <tr>
+                            <td>#104. Table03</td>
+                            <td>2*pasta<br>1*Lemonande</td>
+                            <td>$640</td>
+                            <td><input type="button" value="Serving"></td>
+                        </tr>
+
+                        <tr>
+                            <td>#103.Table06</td>
+                            <td>1*burger<br>2*fries</td>
+                            <td>$520</td>
+                            <td><input type="button" value="Serving"></td>
+                        </tr>
+
+                        <tr>
+                            <td>#102.table02</td>
+                            <td>Order not placed</td>
+                            <td>--</td>
+                            <td><input type="button" value="Waiting"></td>
+                        </tr>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
