@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DineFlow - Restaurant Management</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            color: #222;
+            width: 100%;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* NAVBAR */
+
+        .class1 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 5%;
+            background-color: #FFFFFF;
+            gap: 20px;
+        }
+
+        .class1 h2 {
+            font-size: 24px;
+        }
+
+        .class2 {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            gap: 25px;
+        }
+
+        .class2 li a {
+            color: #222;
+        }
+
+        .class2 li h2 {
+            font-size: 17px;
+        }
+
+        .login-btn {
+            padding: 11px 20px;
+            border: none;
+            background-color: goldenrod;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        /* HERO SECTION */
+
+        .class3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 500px;
+        }
+
+        .hero-left {
+            background-color: #FBF8F1;
+            padding: 70px 8%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .hero-left .small-heading {
+            margin-bottom: 15px;
+        }
+
+        .hero-left h1 {
+            font-size: 48px;
+            margin-bottom: 5px;
+        }
+
+        .hero-left .gold-heading {
+            color: goldenrod;
+        }
+
+        .hero-description {
+            color: grey;
+            line-height: 1.7;
+            margin: 20px 0;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .hero-buttons input {
+            padding: 15px 22px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            border: none;
+        }
+
+        .explore-btn {
+            background-color: goldenrod;
+        }
+
+        .feature-btn {
+            background-color: white;
+            border: 1px solid #ccc !important;
+        }
+
+        .project-note {
+            color: grey;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        /* RESTAURANT FLOOR */
+
+        .hero-right {
+            background-color: #F1E4D0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .floor-box {
+            width: 90%;
+            max-width: 500px;
+            min-height: 400px;
+            border-radius: 35px;
+            background: linear-gradient(145deg, #30271c, #6b4a2b);
+            padding: 25px;
+        }
+
+        .floor-box h1 {
+            color: antiquewhite;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .class4 {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            justify-items: center;
+            align-items: center;
+            background-color: #F7EFE2;
+            border-radius: 15px;
+            padding: 25px 12px;
+            min-height: 280px;
+        }
+
+        .ready,
+        .serving,
+        .occupied,
+        .waiting {
+            width: 100%;
+            max-width: 120px;
+            min-height: 100px;
+            padding: 15px 8px;
+            margin: 0;
+            border-radius: 10px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .ready {
+            color: darkgreen;
+            background-color: #E2F1E4;
+        }
+
+        .serving {
+            color: #9c2525;
+            background-color: #FDE8E8;
+        }
+
+        .occupied {
+            color: purple;
+            background-color: #FFF0D5;
+        }
+
+        .waiting {
+            color: red;
+            background-color: aqua;
+        }
+
+        .ready h1,
+        .serving h1,
+        .occupied h1,
+        .waiting h1 {
+            color: inherit;
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        /* FEATURE INTRODUCTION */
+
+        .section-heading {
+            text-align: center;
+            margin: 60px 20px 40px;
+        }
+
+        .section-heading p {
+            margin-bottom: 12px;
+        }
+
+        .section-heading h2 {
+            margin-bottom: 12px;
+            font-size: 28px;
+        }
+
+        .section-heading h3 {
+            font-size: 18px;
+            font-weight: normal;
+            color: grey;
+        }
+
+        /* FEATURE CARDS */
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 25px;
+            max-width: 1100px;
+            margin: 50px auto 80px;
+            padding: 0 25px;
+        }
+
+        .feature-card {
+            border: 1px solid #ccc;
+            min-height: 170px;
+            border-radius: 25px;
+            text-align: center;
+            padding: 25px 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .feature-card h2 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            line-height: 1.6;
+            color: #555;
+        }
+
+        /* FOOTER */
+
+        footer {
+            padding: 0 20px 20px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            border: 2px solid black;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brandmark {
+            background-color: darkkhaki;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 22px;
+        }
+
+        .footer-content p {
+            color: #555;
+        }
+
+        .footer-content a {
+            color: #8b6508;
+            font-weight: bold;
+        }
+
+        /* TABLET RESPONSIVE */
+
+        @media (max-width: 900px) {
+
+            .class1 {
+                padding: 15px 3%;
+            }
+
+            .class2 {
+                gap: 15px;
+            }
+
+            .class2 li h2 {
+                font-size: 15px;
+            }
+
+            .hero-left {
+                padding: 45px 6%;
+            }
+
+            .hero-left h1 {
+                font-size: 38px;
+            }
+
+            .features {
+                gap: 15px;
+            }
+
+            .feature-card {
+                padding: 20px 10px;
+            }
+
+            .feature-card h2 {
+                font-size: 17px;
+            }
+        }
+
+        /* MOBILE RESPONSIVE */
+
+        @media (max-width: 600px) {
+
+            .class1 {
+                flex-direction: column;
+                gap: 15px;
+                padding: 18px 12px;
+            }
+
+            .class1 h2 {
+                font-size: 21px;
+            }
+
+            .class2 {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+            .class2 li h2 {
+                font-size: 14px;
+            }
+
+            .login-btn {
+                padding: 9px 15px;
+            }
+
+            .class3 {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-left {
+                padding: 45px 25px;
+            }
+
+            .hero-left h1 {
+                font-size: 36px;
+            }
+
+            .hero-description br {
+                display: none;
+            }
+
+            .hero-buttons {
+                width: 100%;
+            }
+
+            .hero-buttons input {
+                width: 100%;
+            }
+
+            .hero-right {
+                padding: 30px 15px;
+            }
+
+            .floor-box {
+                width: 100%;
+                padding: 18px 12px;
+                min-height: auto;
+            }
+
+            .floor-box h1 {
+                font-size: 25px;
+            }
+
+            .class4 {
+                gap: 8px;
+                padding: 18px 8px;
+            }
+
+            .ready,
+            .serving,
+            .occupied,
+            .waiting {
+                min-height: 85px;
+                padding: 10px 5px;
+            }
+
+            .ready h1,
+            .serving h1,
+            .occupied h1,
+            .waiting h1 {
+                font-size: 19px;
+            }
+
+            .ready p,
+            .serving p,
+            .occupied p,
+            .waiting p {
+                font-size: 12px;
+            }
+
+            .section-heading {
+                margin: 45px 15px 30px;
+            }
+
+            .section-heading h2 {
+                font-size: 23px;
+            }
+
+            .section-heading h3 {
+                font-size: 15px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+                margin: 30px auto 50px;
+                padding: 0 20px;
+                gap: 18px;
+            }
+
+            .feature-card {
+                width: 100%;
+                min-height: 150px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 20px;
+                padding: 25px 15px;
+            }
+
+            .footer-brand h1 {
+                font-size: 24px;
+            }
+        }
+
+        /* SMALL MOBILE */
+
+        @media (max-width: 350px) {
+
+            .class2 {
+                gap: 10px;
+            }
+
+            .class2 li h2 {
+                font-size: 12px;
+            }
+
+            .hero-left h1 {
+                font-size: 30px;
+            }
+
+            .class4 {
+                gap: 5px;
+            }
+
+            .ready,
+            .serving,
+            .occupied,
+            .waiting {
+                padding: 8px 3px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <div class="class1">
+
+        <ul type="none">
+            <li>
+                <h2>
+                    <a href="index.html" style="color:black;">
+                        <span>✦</span> Dine<span>Flow</span>
+                    </a>
+                </h2>
+            </li>
+        </ul>
+
+        <ul class="class2">
+
+            <li>
+                <h2>
+                    <a href="index.html">Home</a>
+                </h2>
+            </li>
+
+            <li>
+                <h2>
+                    <a href="#features">Features</a>
+                </h2>
+            </li>
+
+            <li>
+                <h2>
+                    <a href="dashboard.html">Dashboard</a>
+                </h2>
+            </li>
+
+        </ul>
+
+        <ul type="none" class="class2">
+            <li>
+                <a href="lopginpage.html">
+                    <input type="button" value="Staff Login" class="login-btn">
+                </a>
+            </li>
+        </ul>
+
+    </div>
+
+    <!-- HERO SECTION -->
+
+    <div class="class3">
+
+        <div class="hero-left">
+
+            <p class="small-heading">Restaurant service made easy</p>
+
+            <h1>Every table.</h1>
+
+            <h1 class="gold-heading">Under control.</h1>
+
+            <p class="hero-description">
+                Keep track of occupied tables, pending orders, active service
+                and payments from one clear, easy-to-use workspace
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="dashboard.html">
+                    <input type="button" value="Explore Dashboard" class="explore-btn">
+                </a>
+
+                <a href="#features">
+                    <input type="button" value="Discover Features" class="feature-btn">
+                </a>
+
+            </div>
+
+            <p class="project-note">
+                A front-end college project concept. Simple, clear, responsive.
+            </p>
+
+        </div>
+
+        <!-- RESTAURANT FLOOR -->
+
+        <div class="hero-right">
+
+            <div class="floor-box">
+
+                <h1>Restaurant floor</h1>
+
+                <div class="class4">
+
+                    <div class="ready">
+                        <h1>T01</h1>
+                        <p>Ready</p>
+                    </div>
+
+                    <div class="occupied">
+                        <h1>T02</h1>
+                        <p>Occupied</p>
+                    </div>
+
+                    <div class="waiting">
+                        <h1>T03</h1>
+                        <p>Waiting</p>
+                    </div>
+
+                    <div class="ready">
+                        <h1>T04</h1>
+                        <p>Ready</p>
+                    </div>
+
+                    <div class="occupied">
+                        <h1>T05</h1>
+                        <p>Occupied</p>
+                    </div>
+
+                    <div class="serving">
+                        <h1>T06</h1>
+                        <p>Serving</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- FEATURE INTRODUCTION -->
+
+    <div class="section-heading" id="features">
+
+        <p>One Simple workspace</p>
+
+        <h2>Run the floor with confidence</h2>
+
+        <h3>Everything the team needs to keep serving moving.</h3>
+
+    </div>
+
+    <!-- FEATURE CARDS -->
+
+    <div class="features">
+
+        <div class="feature-card">
+
+            <h2>Know every table</h2>
+
+            <p>
+                See which tables are available,
+                occupied, waiting for orders or
+                being served.
+            </p>
+
+        </div>
+
+        <div class="feature-card">
+
+            <h2>Follow each order</h2>
+
+            <p>
+                Keep table numbers and order
+                progress together so staff know
+                what needs attention.
+            </p>
+
+        </div>
+
+        <div class="feature-card">
+
+            <h2>Handle payment</h2>
+
+            <p>
+                View a clear sample bill with
+                subtotal, tax and total before the
+                table is cleared.
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <div class="footer-content">
+
+            <div class="footer-brand">
+
+                <span class="brandmark">✦</span>
+
+                <h1>DINEFLOW</h1>
+
+            </div>
+
+            <div>
+                <p>
+                    Restaurant Table Service Management.
+                    College project demo
+                </p>
+            </div>
+
+            <div>
+                <a href="dashboard.html">Open Dashboard</a>
+            </div>
+
+        </div>
+
+    </footer>
+
+</body>
+
