@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Login</title>
+    <link rel="stylesheet" href="my.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        .class1 {
+            width: 60%;
+            min-height: 100vh;
+            background:
+                linear-gradient(
+                    0deg,
+                    rgba(25, 17, 10, .9),
+                    rgba(25, 17, 10, .2)
+                ),
+                url("https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1400&q=85")
+                center / cover no-repeat;
+        }
+
+        .login-section {
+            width: 40%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
+
+        .login-section h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .login-section p {
+            font-size: 15px;
+            color: #666;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        form {
+            width: 100%;
+            max-width: 350px;
+        }
+
+        form label {
+            display: block;
+            font-size: 15px;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        form input[type="text"],
+        form input[type="password"] {
+            width: 100%;
+            padding: 13px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        form input[type="submit"] {
+            width: 100%;
+            padding: 13px;
+            background: #8b4513;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        form input[type="submit"]:hover {
+            background: #66320e;
+        }
+
+        /* Tablet */
+        @media (max-width: 900px) {
+            .class1 {
+                width: 50%;
+            }
+
+            .login-section {
+                width: 50%;
+                padding: 25px;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 600px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .class1 {
+                width: 100%;
+                min-height: 250px;
+                height: 250px;
+            }
+
+            .login-section {
+                width: 100%;
+                min-height: auto;
+                padding: 40px 25px;
+            }
+
+            .login-section h1 {
+                font-size: 27px;
+            }
+
+            form {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="class1"></div>
+
+        <div class="login-section">
+
+            <h1>Welcome back</h1>
+
+            <p>Sign in to your restaurant workspace</p>
+
+            <form>
+                <label for="email">Email address</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="staff@restaurant.com"
+                    required
+                >
+
+                <label for="password">Password</label>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Enter your password"
+                    required
+                >
+
+                <input type="submit" value="Sign in">
+            </form>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
